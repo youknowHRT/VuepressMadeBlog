@@ -4,7 +4,8 @@ module.exports = {
     head: [
         ['link', { rel: 'icon', href: '/img/logo.ico' }]
     ],
-    dest: '/dist/',
+    dest: './dist',
+    base: '/Blog/',
     themeConfig: {
         sidebar: false,
         nav: [
