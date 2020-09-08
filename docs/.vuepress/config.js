@@ -32,7 +32,8 @@ module.exports = {
                 collapsable: true,
                 children: [
                     { title: "关于this的指向", path: '/JS/pointerOfThis' },
-                    { title: "js2", path: '/JS/js2' }
+                    { title: "AJAX初步认知", path: '/JS/AJAXFirstLearn' },
+                    { title: "JS交互DEMO", path: '/JS/JSInteraction' }
                 ]
             },
             {
