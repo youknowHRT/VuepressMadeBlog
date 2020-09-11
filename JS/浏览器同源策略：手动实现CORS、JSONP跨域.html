@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>浏览器同源策略：手动实现CORS、JSONP跨域 | 黄俊彦のBLOG</title>
+    <meta name="description" content="Stay hungry, Stay foolish">
+    <link rel="icon" href="/Blog/img/logo.ico">
+    
+    <link rel="preload" href="/Blog/assets/css/0.styles.06412e54.css" as="style"><link rel="preload" href="/Blog/assets/js/app.15adfd60.js" as="script"><link rel="preload" href="/Blog/assets/js/2.9302a30e.js" as="script"><link rel="preload" href="/Blog/assets/js/14.4c514ba4.js" as="script"><link rel="prefetch" href="/Blog/assets/js/10.f20762d1.js"><link rel="prefetch" href="/Blog/assets/js/11.aa21cf92.js"><link rel="prefetch" href="/Blog/assets/js/12.3f08d5f0.js"><link rel="prefetch" href="/Blog/assets/js/13.0bd173e5.js"><link rel="prefetch" href="/Blog/assets/js/15.2162d8be.js"><link rel="prefetch" href="/Blog/assets/js/16.c7822e53.js"><link rel="prefetch" href="/Blog/assets/js/17.28084c92.js"><link rel="prefetch" href="/Blog/assets/js/3.ec4cb206.js"><link rel="prefetch" href="/Blog/assets/js/4.c22cad4c.js"><link rel="prefetch" href="/Blog/assets/js/5.2e2c7f40.js"><link rel="prefetch" href="/Blog/assets/js/6.0ed2765f.js"><link rel="prefetch" href="/Blog/assets/js/7.b43498b7.js"><link rel="prefetch" href="/Blog/assets/js/8.ee02fac1.js"><link rel="prefetch" href="/Blog/assets/js/9.5c688e68.js">
+    <link rel="stylesheet" href="/Blog/assets/css/0.styles.06412e54.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Blog/" class="home-link router-link-active"><!----> <span class="site-name">黄俊彦のBLOG</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/Blog/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博文" class="dropdown-title"><span class="title">博文</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Blog/JS/" class="nav-link router-link-active">JS</a></li><li class="dropdown-item"><!----> <a href="/Blog/CSS/" class="nav-link">CSS</a></li><li class="dropdown-item"><!----> <a href="/Blog/HTTP/" class="nav-link">HTTP</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Blog/" class="nav-link">GitHub</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Blog/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博文" class="dropdown-title"><span class="title">博文</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Blog/JS/" class="nav-link router-link-active">JS</a></li><li class="dropdown-item"><!----> <a href="/Blog/CSS/" class="nav-link">CSS</a></li><li class="dropdown-item"><!----> <a href="/Blog/HTTP/" class="nav-link">HTTP</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Blog/" class="nav-link">GitHub</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><a href="/Blog/JS/" class="sidebar-heading clickable router-link-active open"><span>JavaScript</span> <span class="arrow down"></span></a> <ul class="sidebar-links sidebar-group-items"><li><a href="/Blog/JS/pointerOfThis.html" class="sidebar-link">关于this的指向</a></li><li><a href="/Blog/JS/AJAXFirstLearn.html" class="sidebar-link">AJAX初步认知</a></li><li><a href="/Blog/JS/浏览器同源策略：手动实现CORS、JSONP跨域.html" class="active sidebar-link">浏览器同源策略：手动实现CORS、JSONP跨域</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/JS/浏览器同源策略：手动实现CORS、JSONP跨域.html#cors" class="sidebar-link">CORS</a></li><li class="sidebar-sub-header"><a href="/Blog/JS/浏览器同源策略：手动实现CORS、JSONP跨域.html#jsonp" class="sidebar-link">JSONP</a></li></ul></li><li><a href="/Blog/JS/var和let const的区别.html" class="sidebar-link">var和let const的区别</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/Blog/CSS/初探CSS动画" class="sidebar-heading clickable"><span>CSS</span> <span class="arrow right"></span></a> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><a href="/Blog/HTTP/" class="sidebar-heading clickable"><span>HTTP</span> <span class="arrow right"></span></a> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="浏览器同源策略：手动实现cors、jsonp跨域"><a href="#浏览器同源策略：手动实现cors、jsonp跨域" class="header-anchor">#</a> 浏览器同源策略：手动实现CORS、JSONP跨域</h1> <h1 id="一、同源策略"><a href="#一、同源策略" class="header-anchor">#</a> 一、同源策略</h1> <p>什么是同源策略？</p> <p>同源策略（Same-Origin Policy）就是：浏览器规定，只有URL的<strong>协议+域名+端口</strong>一模一样，才能向同一域名的服务器请求数据。</p> <p>为什么浏览器要规定同源策略呢？为了保护用户信息安全</p> <p>虽然限制是必要的，但往往也会影响到合理的用途，<strong>跨域是为了突破浏览器的同源策略限制</strong></p> <p>其实cors的原理就是，告诉浏览器：&quot;请别担心，这个请求是安全的，让他访问吧&quot;。</p> <p>而jsonp的原理是，使用浏览器不担心的方式去请求：script标签中的src属性。</p> <p>先来模拟出跨域的场景，在本地启动一个最简单的node服务，返回数据。</p> <div class="language- extra-class"><pre class="language-text"><code>const http = require('http')
+
+var server = http.createServer(function (req, res) {
+  console.log(&quot;got conncet&quot;);
+  res.writeHeader(200, {
+    'content-type': 'text/javascript;charset=&quot;utf-8&quot;',
+  })
+  const msg = { 'a': 'CORS', 'b': 'JSONP' }
+  const mm = JSON.stringify(msg)
+  let outMsg = `getData(${mm})`
+  res.end(outMsg)
+})
+
+server.listen(9000)
+console.log(`Serve running at http://127.0.0.1:9000/`);
+</code></pre></div><p>启动服务</p> <div class="language- extra-class"><pre class="language-text"><code>node server.js
+</code></pre></div><p>页面显示</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/2.png" alt="1"></p> <p>然后就在当前页面（当前文章阅读页面）f12打开控制台,在console里创建一个ajax请求</p> <div class="language- extra-class"><pre class="language-text"><code>var xhr = **new** *XMLHttpRequest*();
+
+xhr.open('get', 'http://127.0.0.1:9000');
+
+xhr.send();
+</code></pre></div><p>执行以后就出现跨域报错了</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/1.png" alt="2"></p> <h2 id="cors"><a href="#cors" class="header-anchor">#</a> CORS</h2> <p>首先来看一下cors的跨域原理，其实报错里就写的很明白，我们访问的资源没有设置该访问源的头。</p> <p>在cors的规则中，请求分为简单请求和非简单请求，我们上面发送的就是一个简单请求。</p> <blockquote><p>关于简单请求和非简单请求，参考：<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener noreferrer">跨域资源共享 CORS 详解<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></blockquote> <h4 id="对于简单请求"><a href="#对于简单请求" class="header-anchor">#</a> 对于简单请求</h4> <p>只要在响应头中（response header）指明允许哪些访问源访问就可以了。</p> <p>在server.js中给响应头添加 <code>Access-Control-Allow-Origin</code></p> <div class="language- extra-class"><pre class="language-text"><code>const http = require('http')
+
+var server = http.createServer(function (req, res) {
+  console.log(&quot;got conncet&quot;);
+  res.writeHeader(200, {
+    'content-type': 'text/javascript;charset=&quot;utf-8&quot;',
+    'Access-Control-Allow-Origin': '*' // * 代表允许所有的源访问
+  })
+  const msg = { 'a': 'CORS', 'b': 'JSONP' }
+  const mm = JSON.stringify(msg)
+  let outMsg = `getData(${mm})`
+  res.end(outMsg)
+})
+
+server.listen(9000)
+console.log(`Serve running at http://127.0.0.1:9000/`);
+</code></pre></div><p>重启node服务，再试一次</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/3.png" alt="3"></p> <p>报错没有了，打开network可以看到 <code>Access-Control-Allow-Origin</code> 已经生效，数据也成功获取到</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/4.png" alt="6"></p> <h4 id="对于非简单请求"><a href="#对于非简单请求" class="header-anchor">#</a> 对于非简单请求</h4> <p>将上面请求的方法从get改成put，再次请求 （put方法就属于非简单请求）</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/8.png" alt="7"></p> <p>可以看到跨域报错又出现了，刚才设置的响应头依然存在，却不起作用了。</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/6.png" alt="4"> 另外这里可以看到我们本来发送的是put请求，请求方法那里写的却是options。原因就是对于非简单请求浏览器会先发送一次预检，预检通过才会发送真正的请求，这个options就是预检请求，因为没有通过，所以也就没有发送真正的请求</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/5.png" alt="5"></p> <p>其实报错中也写的很明白，我们访问的资源没有设置允许对PUT这个方法的访问</p> <p>在server.js中给响应头添加 <code>Access-Control-Allow-Methods</code>，设置允许put方法的请求</p> <div class="language- extra-class"><pre class="language-text"><code>const http = require('http')
+
+var server = http.createServer(function (req, res) {
+  console.log(&quot;got conncet&quot;);
+  res.writeHeader(200, {
+    'content-type': 'text/javascript;charset=&quot;utf-8&quot;',
+    'Access-Control-Allow-Origin': '*',// * 代表允许所有的源访问
+    'Access-Control-Allow-Methods': 'PUT,POST,GET'
+  })
+  const msg = { 'a': 'CORS', 'b': 'JSONP' }
+  const mm = JSON.stringify(msg)
+  let outMsg = `getData(${mm})`
+  res.end(outMsg)
+})
+
+server.listen(9000)
+console.log(`Serve running at http://127.0.0.1:9000/`);
+</code></pre></div><p>重启服务以后再次请求，可以看到跨域报错就消失了</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/9.png" alt="9"></p> <p>还可以看到依然先进行了一次预检请求，这次预检请求通过了，继续发送了put请求</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/11.png" alt="10"></p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/7.png" alt="8"></p> <p>非简单请求还对请求头的信息有所限制，原理还是一样的，通过<code>Access-Control-Allow-Headers</code>在返回头中设置允许的访问头就ok了,比如</p> <div class="language- extra-class"><pre class="language-text"><code>var xhr = new XMLHttpRequest();
+xhr.open('put', 'http://127.0.0.1:9000');
+xhr.setRequestHeader(&quot;Cors-Test&quot;, &quot;biubiubiu&quot;);
+xhr.send();
+</code></pre></div><p>设置允许 X-Corx-Test这个请求头</p> <div class="language- extra-class"><pre class="language-text"><code>const http = require('http')
+
+var server = http.createServer(function (req, res) {
+  console.log(&quot;got conncet&quot;);
+  res.writeHeader(200, {
+    'content-type': 'text/javascript;charset=&quot;utf-8&quot;',
+    'Access-Control-Allow-Origin': '*',// * 代表允许所有的源访问
+    'Access-Control-Allow-Methods': 'PUT,POST,GET',
+    'Access-Control-Allow-Headers': 'Cors-Test'
+  })
+  const msg = { 'a': 'CORS', 'b': 'JSONP' }
+  const mm = JSON.stringify(msg)
+  let outMsg = `getData(${mm})`
+  res.end(outMsg)
+})
+
+server.listen(9000)
+console.log(`Serve running at http://127.0.0.1:9000/`);
+</code></pre></div><p>请求通过</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/12.png" alt="12"></p> <h2 id="jsonp"><a href="#jsonp" class="header-anchor">#</a> JSONP</h2> <p>去掉node服务中对CORS的配置</p> <div class="language- extra-class"><pre class="language-text"><code>const http = require('http')
+
+var server = http.createServer(function (req, res) {
+  console.log(&quot;got conncet&quot;);
+  res.writeHeader(200, {
+    'content-type': 'text/javascript;charset=&quot;utf-8&quot;',
+  })
+  const msg = { 'a': 'CORS', 'b': 'JSONP' }
+  const mm = JSON.stringify(msg)
+  let outMsg = `getData(${mm})`
+  res.end(outMsg)
+})
+
+server.listen(9000)
+console.log(`Serve running at http://127.0.0.1:9000/`);
+</code></pre></div><p>前面说过jsonp的原理就是使用script标签的src不受浏览器跨域限制的原理</p> <div class="language- extra-class"><pre class="language-text"><code>var script = document.createElement('script');
+script.src = 'http://127.0.0.1:9000';
+document.head.appendChild(script);
+function getData(res) {
+  console.log(res);
+}
+</code></pre></div><p>成功获取数据</p> <p><img src="https://gitee.com/youknowHRT/document/raw/master/imgs/10.png" alt="11"></p> <p>getData()这个函数名字要前后端约定一致，一般使用string+随机数来生成函数名，另外获取完数据以后最好移除一下script标签</p> <div class="language- extra-class"><pre class="language-text"><code>var script = document.createElement('script');
+script.src = 'http://127.0.0.1:9000';
+document.head.appendChild(script);
+function getData(res) {
+  console.log(res);
+  document.head.removeChild(script);
+}
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/Blog/JS/AJAXFirstLearn.html" class="prev">AJAX初步认知</a></span> <span class="next"><a href="/Blog/JS/var和let const的区别.html">var和let const的区别</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/Blog/assets/js/app.15adfd60.js" defer></script><script src="/Blog/assets/js/2.9302a30e.js" defer></script><script src="/Blog/assets/js/14.4c514ba4.js" defer></script>
+  </body>
+</html>
