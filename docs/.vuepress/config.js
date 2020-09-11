@@ -14,13 +14,13 @@ module.exports = {
                 text: '博文',
                 items: [
                     { text: 'JS', link: '/JS/' },
-                    { text: 'CSS', link: '/CSS/' }
+                    { text: 'CSS', link: '/CSS/' },
+                    { text: 'HTTP', link: '/HTTP/' }
                 ]
             },
             {
                 text: '其他',
                 items: [
-                    { text: '掘金', link: '/' },
                     { text: 'GitHub', link: '/' }
                 ]
             }
@@ -33,16 +33,24 @@ module.exports = {
                 children: [
                     { title: "关于this的指向", path: '/JS/pointerOfThis' },
                     { title: "AJAX初步认知", path: '/JS/AJAXFirstLearn' },
-                    { title: "JS交互DEMO", path: '/JS/JSInteraction' }
+                    { title: "浏览器同源策略：手动实现CORS、JSONP跨域", path: '/JS/浏览器同源策略：手动实现CORS、JSONP跨域' },
+                    { title: "var和let const的区别", path: '/JS/var和let const的区别' },
                 ]
             },
             {
                 title: 'CSS',
-                path: '/CSS/',
+                path: '/CSS/初探CSS动画',
                 collapsable: true,
                 children: [
-                    { title: "css1", path: '/CSS/css1' },
-                    { title: "css2", path: '/CSS/css2' }
+                    { title: "初探CSS动画", path: '/CSS/初探CSS动画' },
+                ]
+            },
+            {
+                title: 'HTTP',
+                path: '/HTTP/',
+                collapsable: true,
+                children: [
+                    { title: "HTTP初步认知", path: '/HTTP/HTTP初步认知' },
                 ]
             }
         ]
